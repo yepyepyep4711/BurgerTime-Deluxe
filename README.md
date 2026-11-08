@@ -11,7 +11,7 @@ This repository contains no game data; you need your own copy of the ROM.
 
 The patch applies to exactly this file:
 
-| | |
+| This | Should be this |
 |---|---|
 | Name | `BurgerTime Deluxe (World).gb` |
 | Size | 65536 bytes |
