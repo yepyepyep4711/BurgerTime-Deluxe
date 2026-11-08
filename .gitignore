@@ -1,0 +1,13 @@
+# Never commit game data or saves
+*.gb
+*.gbc
+*.sgb
+*.sav
+*.ips
+*.bps
+*.zip
+roms/
+release/
+build/
+__pycache__/
+*.pyc
