@@ -152,7 +152,7 @@ Version {version}  -  by {author}  -  {date}
 ==============================================================================
 
 DESCRIPTION
-  Adds battery-backed saving of the high score to BurgerTime Deluxe (Game Boy).
+  Adds saving of the hi-score to BurgerTime Deluxe (Game Boy).
   The game itself is unchanged: no new screens, no new menus. The hi-score you
   saw last time is simply still there the next time you play, instead of being
   reset to zero every time the console is switched on.
@@ -198,8 +198,6 @@ KNOWN LIMITATIONS
   - Only the hi-score is saved; nothing else.
   - A save that is damaged (wrong check byte, or digits that are not valid BCD)
     is ignored and the game starts with a zero hi-score.
-  - If a copy of the game on the same cartridge shares its save RAM with another
-    game, the save may be overwritten by it. Use one game per save slot.
 
 TECHNICAL NOTES
   Changes to the ROM (all in unused space or at hook points):
@@ -210,7 +208,7 @@ TECHNICAL NOTES
     0x0049, 0x0051  7-byte stubs in the unused part of the interrupt table.
     0x3FD0          Save routine (47 bytes, bank 0).
     0x7EE3          Load routine (bank 1).
-  Game RAM:   high score = $DFF0-$DFF2 (3 bytes, BCD, same order as on screen),
+  Game RAM:   hi-score = $DFF0-$DFF2 (3 bytes, BCD, same order as on screen),
               current score = $C342-$C344.
   Save RAM at $A000: hi-score (3 bytes) + check byte ($A5 + b0 + b1 + b2).
   Load runs once at boot, after the game's own RAM clear, forces ROM bank 1 first
@@ -241,19 +239,19 @@ LEGAL
 README_MD = """\
 # {name}
 
-Battery-backed **high score saving** for *BurgerTime Deluxe* (Game Boy). The game is
+**Hi-score saving** for *BurgerTime Deluxe* (Game Boy). The game is
 unchanged: no new screens or menus. The hi-score you saw last time is simply still
 there next time, instead of resetting to zero whenever the console is switched off.
 
-**Download:** see the [latest release](../../releases/latest) (BPS and IPS patches).
+**Download:** see the [latest release]({releases_url}) (BPS and IPS patches).
 This repository contains no game data; you need your own copy of the ROM.
 
 ## Base ROM
 
 The patch applies to exactly this file:
 
-| | |
-|---|---|
+| This | Should be this |
+|-------|-----|
 | Name | `{rom_name}` |
 | Size | {size} bytes |
 | CRC32 | `{crc32}` |
@@ -296,7 +294,6 @@ save RAM.
 - Only the hi-score is saved.
 - A damaged save (wrong check byte, or digits that are not valid BCD) is ignored and
   the game starts with a zero hi-score.
-- Don't share one save slot between several games on the same cartridge.
 
 ## How it works
 
@@ -344,7 +341,7 @@ def main():
     ap.add_argument("--author", default="Your Name")
     ap.add_argument("--version", default="1.0")
     ap.add_argument("--outdir", default="release")
-    ap.add_argument("--repo", default="", help="repository URL, mentioned in README.txt")
+    ap.add_argument("--repo", default="", help="repository URL, used in README.txt and for the release link in README.md")
     a = ap.parse_args()
 
     src_path = Path(a.rom)
@@ -369,8 +366,9 @@ def main():
         rom_name=src_path.name, size=len(src), crc32=f"{zlib.crc32(src):08X}",
         md5=hashlib.md5(src).hexdigest().upper(), sha1=hashlib.sha1(src).hexdigest().upper())
 
+    releases_url = f"{a.repo.rstrip('/')}/releases/latest" if a.repo else "../../releases/latest"
     readme_md = README_MD.format(
-        **names, name=NAME, rom_name=src_path.name, size=len(src), crc32=f"{zlib.crc32(src):08X}",
+        **names, releases_url=releases_url, name=NAME, rom_name=src_path.name, size=len(src), crc32=f"{zlib.crc32(src):08X}",
         md5=hashlib.md5(src).hexdigest().upper(), sha1=hashlib.sha1(src).hexdigest().upper())
 
     outdir = Path(a.outdir)

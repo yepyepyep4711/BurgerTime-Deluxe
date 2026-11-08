@@ -1,10 +1,10 @@
 # BurgerTime Deluxe - Hi-score Save
 
-**High score saving** for *BurgerTime Deluxe* (Game Boy). The game is
+**Hi-score saving** for *BurgerTime Deluxe* (Game Boy). The game is
 unchanged: no new screens or menus. The hi-score you saw last time is simply still
 there next time, instead of resetting to zero whenever the console is switched off.
 
-**Download:** see the [latest release](../../releases/latest) (BPS and IPS patches).
+**Download:** see the [latest release](https://github.com/yepyepyep4711/BurgerTime-Deluxe/releases/latest) (BPS and IPS patches).
 This repository contains no game data; you need your own copy of the ROM.
 
 ## Base ROM
@@ -12,7 +12,7 @@ This repository contains no game data; you need your own copy of the ROM.
 The patch applies to exactly this file:
 
 | This | Should be this |
-|---|---|
+|-------|-----|
 | Name | `BurgerTime Deluxe (World).gb` |
 | Size | 65536 bytes |
 | CRC32 | `88219A49` |
@@ -55,7 +55,6 @@ save RAM.
 - Only the hi-score is saved.
 - A damaged save (wrong check byte, or digits that are not valid BCD) is ignored and
   the game starts with a zero hi-score.
-- Don't share one save slot between several games on the same cartridge.
 
 ## How it works
 
