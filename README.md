@@ -1,6 +1,6 @@
 # BurgerTime Deluxe - Hi-score Save
 
-Battery-backed **high score saving** for *BurgerTime Deluxe* (Game Boy). The game is
+**High score saving** for *BurgerTime Deluxe* (Game Boy). The game is
 unchanged: no new screens or menus. The hi-score you saw last time is simply still
 there next time, instead of resetting to zero whenever the console is switched off.
 
